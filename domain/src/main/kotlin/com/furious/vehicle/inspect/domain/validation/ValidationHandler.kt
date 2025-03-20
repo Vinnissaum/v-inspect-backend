@@ -6,16 +6,16 @@ interface ValidationHandler {
 
     fun append(anHandler: ValidationHandler): ValidationHandler
 
-    fun <T> validate(aValidation: Validation<T>): T?
+    fun <T> validate(aValidation: Validation<T>): T
 
-    fun getErrors(): List<AppError>?
+    fun getErrors(): List<AppError>
 
     fun hasError(): Boolean {
-        return getErrors()?.isNotEmpty() ?: false
+        return getErrors().isNotEmpty() ?: false
     }
 
     fun firstError(): AppError? {
-        return getErrors()?.first()
+        return getErrors().first()
     }
 
     interface Validation<T> {
