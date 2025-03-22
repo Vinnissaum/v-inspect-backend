@@ -30,20 +30,20 @@ data class Address private constructor(
 
     fun validate(): List<AppError> {
         val errors = mutableListOf<AppError>()
-        if (street.isBlank()) {
-            errors.add(AppError("Street cannot be blank"))
+        if (street.isEmpty()) {
+            errors.add(AppError("'street' cannot be empty"))
         }
-        if (city.isBlank()) {
-            errors.add(AppError("City cannot be blank"))
+        if (city.isEmpty()) {
+            errors.add(AppError("'city' cannot be empty"))
         }
-        if (state.isBlank()) {
-            errors.add(AppError("State cannot be blank"))
+        if (state.isEmpty()) {
+            errors.add(AppError("'state' cannot be empty"))
         }
-        if (postalCode.isBlank()) {
-            errors.add(AppError("Postal code cannot be blank"))
+        if (postalCode.isEmpty()) {
+            errors.add(AppError("'postal' code cannot be empty"))
         }
-        if (country.isBlank()) {
-            errors.add(AppError("Country cannot be blank"))
+        if (country.isEmpty()) {
+            errors.add(AppError("'country' cannot be empty"))
         }
 
         return errors

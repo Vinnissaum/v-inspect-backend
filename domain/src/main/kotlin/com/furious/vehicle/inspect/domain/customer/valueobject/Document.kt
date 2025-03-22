@@ -11,8 +11,8 @@ data class Document private constructor(
     }
 
     fun validate(): List<AppError> {
-        if (value.trim().isBlank()) {
-            return listOf(AppError("Document value cannot be blank"))
+        if (value.trim().isEmpty()) {
+            return listOf(AppError("'document' value cannot be empty"))
         }
         return listOf()
     }
