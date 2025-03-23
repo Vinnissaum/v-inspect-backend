@@ -6,8 +6,6 @@ abstract class Entity<ID : Identifier>(protected val id: ID) {
 
     abstract fun validate(handler: ValidationHandler)
 
-    fun getId(): ID = id
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

@@ -8,14 +8,14 @@ interface ValidationHandler {
 
     fun <T> validate(aValidation: Validation<T>): T?
 
-    fun getErrors(): List<AppError>?
+    fun getErrors(): List<AppError>
 
     fun hasError(): Boolean {
-        return getErrors()?.isNotEmpty() ?: false
+        return getErrors().isNotEmpty()
     }
 
     fun firstError(): AppError? {
-        return getErrors()?.first()
+        return getErrors().first()
     }
 
     interface Validation<T> {
