@@ -10,10 +10,10 @@ class CustomerID(private val value: String) : Identifier() {
         Objects.requireNonNull(value)
     }
 
-    companion object Factory {
+    companion object {
         fun unique(): CustomerID = from(UUID.randomUUID())
         fun from(anId: String): CustomerID = CustomerID(anId)
-        fun from(anId: UUID): CustomerID = CustomerID(anId.toString().lowercase(Locale.getDefault()))
+        fun from(anId: UUID): CustomerID = CustomerID(anId.toString().lowercase())
     }
 
     override fun getValue(): String = value

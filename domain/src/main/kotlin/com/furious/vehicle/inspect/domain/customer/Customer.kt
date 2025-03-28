@@ -96,4 +96,6 @@ class Customer private constructor(
         }
     }
 
+    fun getId() = this.id
+
 }
