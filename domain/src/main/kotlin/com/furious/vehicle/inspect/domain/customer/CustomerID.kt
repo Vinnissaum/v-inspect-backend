@@ -4,16 +4,16 @@ import com.furious.vehicle.inspect.domain.Identifier
 import java.util.*
 
 
-class CustomerID(private val value: String) : Identifier() {
+class CustomerID private constructor(private val value: String) : Identifier() {
 
     init {
         Objects.requireNonNull(value)
     }
 
-    companion object Factory {
+    companion object {
         fun unique(): CustomerID = from(UUID.randomUUID())
         fun from(anId: String): CustomerID = CustomerID(anId)
-        fun from(anId: UUID): CustomerID = CustomerID(anId.toString().lowercase(Locale.getDefault()))
+        fun from(anId: UUID): CustomerID = CustomerID(anId.toString().lowercase())
     }
 
     override fun getValue(): String = value
