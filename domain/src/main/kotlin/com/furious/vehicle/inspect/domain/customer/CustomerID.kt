@@ -4,7 +4,7 @@ import com.furious.vehicle.inspect.domain.Identifier
 import java.util.*
 
 
-class CustomerID private constructor(private val value: String) : Identifier() {
+class CustomerID(private val value: String) : Identifier() {
 
     init {
         Objects.requireNonNull(value)

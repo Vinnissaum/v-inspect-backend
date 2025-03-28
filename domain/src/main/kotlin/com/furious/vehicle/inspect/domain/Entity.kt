@@ -2,7 +2,7 @@ package com.furious.vehicle.inspect.domain
 
 import com.furious.vehicle.inspect.domain.validation.ValidationHandler
 
-abstract class Entity<ID : Identifier>(protected val id: ID) {
+abstract class Entity<ID : Identifier> protected constructor(protected val id: ID) {
 
     abstract fun validate(handler: ValidationHandler)
 

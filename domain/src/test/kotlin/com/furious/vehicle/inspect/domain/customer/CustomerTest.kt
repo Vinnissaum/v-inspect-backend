@@ -21,6 +21,7 @@ class CustomerTest {
 
         assertAll(
             "Customer validation",
+            { assertNotNull(aCustomer.getId()) },
             { assertEquals(expectedName, aCustomer.name) },
             { assertEquals(expectedPhone, aCustomer.phone) },
             { assertEquals(expectedEmail, aCustomer.email) },
@@ -43,6 +44,7 @@ class CustomerTest {
 
         assertAll(
             "Customer validation",
+            { assertNotNull(aCustomer.getId()) },
             { assertEquals(expectedName, aCustomer.name) },
             { assertEquals(expectedPhone, aCustomer.phone) },
             { assertEquals(expectedEmail, aCustomer.email) },
@@ -288,6 +290,7 @@ class CustomerTest {
 
         assertAll(
             "Customer validation",
+            { assertNotNull(aCustomer.getId()) },
             { assertEquals(expectedName, actualCustomer.name) },
             { assertEquals(expectedPhone, actualCustomer.phone) },
             { assertEquals(expectedEmail, actualCustomer.email) },
