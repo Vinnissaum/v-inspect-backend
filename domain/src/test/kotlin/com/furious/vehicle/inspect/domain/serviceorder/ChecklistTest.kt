@@ -507,4 +507,44 @@ class ChecklistTest {
         )
     }
 
+    @Test
+    fun `given a valid Checklist when call update then should update successfully`() {
+        val expectedVehicle = VehicleID.from("123")
+        val expectedCustomerSignature = "signature"
+        val expectedStatus = ChecklistStatus.NOT_OK
+        val expectedChecklistItem1Description = "Passenger side mirror broken"
+        val expectedChecklistItem1PhotoUrl = "photoUrl"
+        val expectedChecklistItem2Description = "Front-lip scratched"
+        val expectedChecklistItem2PhotoUrl = "photoUrl2"
+        val expectedChecklistID = ChecklistID.unique()
+        val expectedItemsCount = 2
+
+        val aChecklist = Checklist.create(expectedVehicle)
+        aChecklist.addItem(expectedChecklistItem1Description, expectedChecklistItem1PhotoUrl)
+        aChecklist.addItem(expectedChecklistItem2Description, expectedChecklistItem2PhotoUrl)
+
+        assertEquals(ChecklistStatus.PENDING, aChecklist.status)
+
+        Thread.sleep(1) // To ensure that the updatedAt is different from createdAt
+        aChecklist.update(
+            expectedCustomerSignature, expectedStatus, listOf(
+                ChecklistItem.create(
+                    expectedChecklistItem1Description, expectedChecklistItem1PhotoUrl, expectedChecklistID
+                ), ChecklistItem.create(
+                    expectedChecklistItem2Description, expectedChecklistItem2PhotoUrl, expectedChecklistID
+                )
+            )
+        )
+
+        assertAll(
+            "Checklist validation",
+            { assertNotNull(aChecklist.getId()) },
+            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
+            { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
+            { assertEquals(expectedStatus, aChecklist.status) },
+            { assertEquals(expectedItemsCount, aChecklist.items.size) },
+            { assertTrue(aChecklist.createdAt.isBefore(aChecklist.updatedAt)) },
+            { assertTrue(aChecklist.updatedAt.isAfter(aChecklist.createdAt)) })
+    }
+
 }

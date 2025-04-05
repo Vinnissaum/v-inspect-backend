@@ -84,6 +84,18 @@ class Checklist private constructor(
         return this
     }
 
+    fun update(
+        aCustomerSignature: String?, status: ChecklistStatus, items: List<ChecklistItem>
+    ): Checklist {
+        this.customerSignature = aCustomerSignature
+        this.status = status
+        this.items.clear()
+        this.items.addAll(items)
+        this.updatedAt = InstantUtils.now()
+        selfValidate("Failed to update the checklist")
+        return this
+    }
+
     private fun selfValidate(message: String = "") {
         val errorMessage = message.ifEmpty { "Failed to create an Entity Checklist" }
         val notification: Notification = Notification.create()
