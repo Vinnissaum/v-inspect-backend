@@ -1,15 +1,21 @@
 package com.furious.vehicle.inspect.domain.serviceorder
 
 import com.furious.vehicle.inspect.domain.Identifier
+import java.util.*
 
-class ChecklistID(private val value: Long? = 0L) :
-    Identifier() { // This ID will be auto incremented in the DB, so it's initialized with 0
+class ChecklistID(private val value: String) : Identifier() {
 
-    companion object {
-        fun from(anId: Long): ChecklistID = ChecklistID(anId)
+    init {
+        Objects.requireNonNull(value)
     }
 
-    override fun getValue(): Long = value ?: 0L
+    companion object {
+        fun unique(): ChecklistID = from(UUID.randomUUID())
+        fun from(anId: String): ChecklistID = ChecklistID(anId)
+        fun from(anId: UUID): ChecklistID = ChecklistID(anId.toString().lowercase())
+    }
+
+    override fun getValue(): String = value
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

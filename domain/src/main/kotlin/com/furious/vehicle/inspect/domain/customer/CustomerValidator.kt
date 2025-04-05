@@ -36,7 +36,7 @@ class CustomerValidator(
 
         val nameLength = name.trim().length
         if (nameLength < NAME_MIN_LENGTH || nameLength > NAME_MAX_LENGTH) {
-            validationHandler().append(AppError("'name' must be between 3 and 255 characters"))
+            validationHandler().append(AppError("'name' must be between $NAME_MIN_LENGTH and $NAME_MAX_LENGTH characters"))
         }
     }
 

@@ -39,7 +39,7 @@ class VehicleValidator(
 
         val nameLength = name.trim().length
         if (nameLength < MAKE_MIN_LENGTH || nameLength > MAKE_MAX_LENGTH) {
-            validationHandler().append(AppError("'make' must be between 2 and 20 characters"))
+            validationHandler().append(AppError("'make' must be between $MAKE_MIN_LENGTH and $MAKE_MAX_LENGTH characters"))
         }
     }
 
@@ -58,7 +58,7 @@ class VehicleValidator(
 
         val nameLength = name.trim().length
         if (nameLength < MODEL_MIN_LENGTH || nameLength > MODEL_MAX_LENGTH) {
-            validationHandler().append(AppError("'model' must be between 2 and 30 characters"))
+            validationHandler().append(AppError("'model' must be between $MODEL_MIN_LENGTH and $MODEL_MAX_LENGTH characters"))
         }
     }
 
