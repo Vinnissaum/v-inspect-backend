@@ -1,4 +1,4 @@
-package com.furious.vehicle.inspect.domain.vehicle
+package com.furious.vehicle.inspect.domain.customer.vehicle
 
 import com.furious.vehicle.inspect.domain.Identifier
 import java.util.*

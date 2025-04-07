@@ -2,7 +2,7 @@ package com.furious.vehicle.inspect.domain.serviceorder
 
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
 import com.furious.vehicle.inspect.domain.serviceorder.valueobject.ChecklistStatus
-import com.furious.vehicle.inspect.domain.vehicle.VehicleID
+import com.furious.vehicle.inspect.domain.customer.vehicle.VehicleID
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

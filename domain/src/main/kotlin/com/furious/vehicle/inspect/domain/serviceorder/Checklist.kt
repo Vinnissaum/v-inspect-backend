@@ -6,7 +6,7 @@ import com.furious.vehicle.inspect.domain.serviceorder.valueobject.ChecklistStat
 import com.furious.vehicle.inspect.domain.utils.InstantUtils
 import com.furious.vehicle.inspect.domain.validation.ValidationHandler
 import com.furious.vehicle.inspect.domain.validation.handler.Notification
-import com.furious.vehicle.inspect.domain.vehicle.VehicleID
+import com.furious.vehicle.inspect.domain.customer.vehicle.VehicleID
 import java.time.Instant
 
 class Checklist private constructor(
