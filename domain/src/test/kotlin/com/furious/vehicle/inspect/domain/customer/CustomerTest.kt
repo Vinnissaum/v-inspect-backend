@@ -1,8 +1,5 @@
 package com.furious.vehicle.inspect.domain.customer
 
-import com.furious.vehicle.inspect.domain.customer.valueobject.Address
-import com.furious.vehicle.inspect.domain.customer.valueobject.Document
-import com.furious.vehicle.inspect.domain.customer.valueobject.DocumentType
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

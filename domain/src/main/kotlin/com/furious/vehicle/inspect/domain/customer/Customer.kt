@@ -1,8 +1,6 @@
 package com.furious.vehicle.inspect.domain.customer
 
 import com.furious.vehicle.inspect.domain.AggregateRoot
-import com.furious.vehicle.inspect.domain.customer.valueobject.Address
-import com.furious.vehicle.inspect.domain.customer.valueobject.Document
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
 import com.furious.vehicle.inspect.domain.utils.InstantUtils
 import com.furious.vehicle.inspect.domain.validation.ValidationHandler

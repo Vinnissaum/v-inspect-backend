@@ -1,4 +1,4 @@
-package com.furious.vehicle.inspect.domain.customer.vehicle.valueobject
+package com.furious.vehicle.inspect.domain.customer.vehicle
 
 import com.furious.vehicle.inspect.domain.ValueObject
 import com.furious.vehicle.inspect.domain.validation.AppError

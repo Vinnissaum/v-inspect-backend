@@ -1,4 +1,4 @@
-package com.furious.vehicle.inspect.domain.serviceorder.valueobject
+package com.furious.vehicle.inspect.domain.serviceorder
 
 enum class ChecklistStatus {
     PENDING,      // Checklist created but not signed

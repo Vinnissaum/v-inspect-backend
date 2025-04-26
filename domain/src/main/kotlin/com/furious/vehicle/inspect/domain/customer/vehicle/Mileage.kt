@@ -1,4 +1,4 @@
-package com.furious.vehicle.inspect.domain.customer.vehicle.valueobject
+package com.furious.vehicle.inspect.domain.customer.vehicle
 
 import com.furious.vehicle.inspect.domain.ValueObject
 import com.furious.vehicle.inspect.domain.validation.AppError
@@ -36,5 +36,9 @@ data class Mileage private constructor(val unit: UnitOfMeasurement, private val 
     override fun toString(): String {
         return "$value ${unit.symbol}"
     }
+}
+
+enum class UnitOfMeasurement(val symbol: String) {
+    MILES("miles"), KM("km")
 }
 

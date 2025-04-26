@@ -2,16 +2,13 @@ package com.furious.vehicle.inspect.domain.serviceorder
 
 import com.furious.vehicle.inspect.domain.Entity
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
-import com.furious.vehicle.inspect.domain.serviceorder.valueobject.ChecklistStatus
 import com.furious.vehicle.inspect.domain.utils.InstantUtils
 import com.furious.vehicle.inspect.domain.validation.ValidationHandler
 import com.furious.vehicle.inspect.domain.validation.handler.Notification
-import com.furious.vehicle.inspect.domain.customer.vehicle.VehicleID
 import java.time.Instant
 
 class Checklist private constructor(
     anId: ChecklistID,
-    aVehicle: VehicleID,
     aCustomerSignature: String?,
     status: ChecklistStatus,
     createdAt: Instant,
@@ -19,8 +16,6 @@ class Checklist private constructor(
     items: List<ChecklistItem>,
 ) : Entity<ChecklistID>(anId) {
 
-    var vehicleID: VehicleID = aVehicle
-        private set
     var customerSignature: String? = aCustomerSignature
         private set
     var status: ChecklistStatus = status
@@ -37,9 +32,8 @@ class Checklist private constructor(
     }
 
     companion object {
-        fun create(aVehicle: VehicleID): Checklist = Checklist(
+        fun create(): Checklist = Checklist(
             ChecklistID.unique(),
-            aVehicle,
             null,
             ChecklistStatus.PENDING,
             createdAt = InstantUtils.now(),
@@ -51,7 +45,6 @@ class Checklist private constructor(
             aChecklist: Checklist
         ): Checklist = Checklist(
             aChecklist.id,
-            aChecklist.vehicleID,
             aChecklist.customerSignature,
             aChecklist.status,
             aChecklist.createdAt,

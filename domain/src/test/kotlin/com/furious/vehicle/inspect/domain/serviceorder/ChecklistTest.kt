@@ -1,8 +1,6 @@
 package com.furious.vehicle.inspect.domain.serviceorder
 
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
-import com.furious.vehicle.inspect.domain.serviceorder.valueobject.ChecklistStatus
-import com.furious.vehicle.inspect.domain.customer.vehicle.VehicleID
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -11,17 +9,15 @@ class ChecklistTest {
 
     @Test
     fun `given a valid params when call create then instantiate a Checklist`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = null
         val expectedStatus = ChecklistStatus.PENDING
         val expectedChecklistItems = emptyList<ChecklistItem>()
 
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
 
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedChecklistItems, aChecklist.items) },
@@ -31,10 +27,9 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem should return Checklist with items`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = null
         val expectedStatus = ChecklistStatus.PENDING
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val actualUpdatedAt = aChecklist.updatedAt
         val expectedChecklistItemDescription = "Passenger side mirror broken"
         val expectedChecklistItemPhotoUrl = "photoUrl"
@@ -46,7 +41,6 @@ class ChecklistTest {
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedItemsCount, aChecklist.items.size) },
@@ -59,10 +53,9 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with a null photoUrl should be Ok`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = null
         val expectedStatus = ChecklistStatus.PENDING
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val actualUpdatedAt = aChecklist.updatedAt
         val expectedChecklistItemDescription = "Passenger side mirror broken"
         val expectedChecklistItemPhotoUrl = null
@@ -74,7 +67,6 @@ class ChecklistTest {
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedItemsCount, aChecklist.items.size) },
@@ -87,8 +79,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with checklist description more chars than specified should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription =
             "This backend project was meticulously engineered with a strong focus on scalability, modular design, performance optimization, and maintainability. It ensures secure communication, robust data handling, and seamless integration across distributed systems..."
         val expectedChecklistItemPhotoUrl = "photoUrl"
@@ -110,8 +101,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with an empty checklist description should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = ""
         val expectedChecklistItemPhotoUrl = "photoUrl"
         val expectedErrorMessage = "Failed to add a checklist item"
@@ -132,8 +122,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with a blank checklist description should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "   "
         val expectedChecklistItemPhotoUrl = "photoUrl"
         val expectedErrorMessage = "Failed to add a checklist item"
@@ -154,8 +143,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with checklist description less chars than specified should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "Pass"
         val expectedChecklistItemPhotoUrl = "photoUrl"
         val expectedErrorMessage = "Failed to add a checklist item"
@@ -176,8 +164,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with an empty checklist photoUrl should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "Passenger window broken"
         val expectedChecklistItemPhotoUrl = ""
         val expectedErrorMessage = "Failed to add a checklist item"
@@ -198,8 +185,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call addItem with a blank checklist photoUrl should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "Passenger window broken"
         val expectedChecklistItemPhotoUrl = "   "
         val expectedErrorMessage = "Failed to add a checklist item"
@@ -220,10 +206,9 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItems should return Checklist with the new items`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = null
         val expectedStatus = ChecklistStatus.PENDING
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val actualUpdatedAt = aChecklist.updatedAt
         val expectedChecklistItem1Description = "Passenger side mirror broken"
         val expectedChecklistItem1PhotoUrl = "photoUrl"
@@ -246,7 +231,6 @@ class ChecklistTest {
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedItemsCount, aChecklist.items.size) },
@@ -257,10 +241,9 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItems with a null photoUrl should be Ok`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = null
         val expectedStatus = ChecklistStatus.PENDING
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val actualUpdatedAt = aChecklist.updatedAt
         val expectedChecklistItem1Description = "Passenger side mirror broken"
         val expectedChecklistItem2Description = "Front-lip scratched"
@@ -280,7 +263,6 @@ class ChecklistTest {
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedItemsCount, aChecklist.items.size) },
@@ -291,8 +273,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItems with checklist description more chars than specified should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription =
             "This backend project was meticulously engineered with a strong focus on scalability, modular design, performance optimization, and maintainability. It ensures secure communication, robust data handling, and seamless integration across distributed systems..."
         val expectedChecklistItemPhotoUrl = "photoUrl"
@@ -320,8 +301,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItems with an empty checklist description should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = ""
         val expectedChecklistItemPhotoUrl = "photoUrl"
         val expectedErrorMessage = "Failed to update the checklist items"
@@ -348,8 +328,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItem with a blank checklist description should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "   "
         val expectedChecklistItemPhotoUrl = "photoUrl"
         val expectedErrorMessage = "Failed to update the checklist items"
@@ -376,8 +355,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItem with checklist description less chars than specified should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "Pass"
         val expectedChecklistItemPhotoUrl = "photoUrl"
         val expectedErrorMessage = "Failed to update the checklist items"
@@ -404,8 +382,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItem with an empty checklist photoUrl should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "Passenger window broken"
         val expectedChecklistItemPhotoUrl = ""
         val expectedErrorMessage = "Failed to update the checklist items"
@@ -432,8 +409,7 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call updateItem with a blank checklist photoUrl should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         val expectedChecklistItemDescription = "Passenger window broken"
         val expectedChecklistItemPhotoUrl = "   "
         val expectedErrorMessage = "Failed to update the checklist items"
@@ -460,12 +436,11 @@ class ChecklistTest {
 
     @Test
     fun `given a valid params when call sign then should return Checklist with a signature`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = "signature"
         val expectedStatus = ChecklistStatus.SIGNED
         val expectedChecklistItems = emptyList<ChecklistItem>()
 
-        var aChecklist = Checklist.create(expectedVehicle)
+        var aChecklist = Checklist.create()
         val actualUpdatedAt = aChecklist.updatedAt
 
         assertEquals(ChecklistStatus.PENDING, aChecklist.status)
@@ -475,7 +450,6 @@ class ChecklistTest {
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedChecklistItems, aChecklist.items) },
@@ -485,13 +459,12 @@ class ChecklistTest {
 
     @Test
     fun `given a valid params when call sign with an empty signature should throw Notification Exception`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = ""
         val expectedErrorMessage = "Failed to sign the checklist"
         val expectedConstraintError = "'customerSignature' of checklist cannot be empty"
         val expectedErrorCount = 1
 
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
 
         assertEquals(ChecklistStatus.PENDING, aChecklist.status)
 
@@ -509,7 +482,6 @@ class ChecklistTest {
 
     @Test
     fun `given a valid Checklist when call update then should update successfully`() {
-        val expectedVehicle = VehicleID.from("123")
         val expectedCustomerSignature = "signature"
         val expectedStatus = ChecklistStatus.NOT_OK
         val expectedChecklistItem1Description = "Passenger side mirror broken"
@@ -519,7 +491,7 @@ class ChecklistTest {
         val expectedChecklistID = ChecklistID.unique()
         val expectedItemsCount = 2
 
-        val aChecklist = Checklist.create(expectedVehicle)
+        val aChecklist = Checklist.create()
         aChecklist.addItem(expectedChecklistItem1Description, expectedChecklistItem1PhotoUrl)
         aChecklist.addItem(expectedChecklistItem2Description, expectedChecklistItem2PhotoUrl)
 
@@ -539,7 +511,6 @@ class ChecklistTest {
         assertAll(
             "Checklist validation",
             { assertNotNull(aChecklist.getId()) },
-            { assertEquals(expectedVehicle, aChecklist.vehicleID) },
             { assertEquals(expectedCustomerSignature, aChecklist.customerSignature) },
             { assertEquals(expectedStatus, aChecklist.status) },
             { assertEquals(expectedItemsCount, aChecklist.items.size) },

@@ -1,7 +1,18 @@
-package com.furious.vehicle.inspect.domain.customer.valueobject
+package com.furious.vehicle.inspect.domain.customer
 
 import com.furious.vehicle.inspect.domain.ValueObject
 import com.furious.vehicle.inspect.domain.validation.AppError
+
+enum class DocumentType {
+    CIN, CPF, RG, PASSPORT, CNH, OTHER;
+
+    companion object {
+        fun from(value: String): DocumentType {
+            return entries.firstOrNull { it.name.equals(value, ignoreCase = true) }
+                ?: throw IllegalArgumentException("Invalid DocumentType: $value")
+        }
+    }
+}
 
 data class Document private constructor(
     val documentType: DocumentType, val value: String

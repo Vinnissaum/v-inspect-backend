@@ -1,4 +1,4 @@
-package com.furious.vehicle.inspect.domain.customer.valueobject
+package com.furious.vehicle.inspect.domain.customer
 
 import com.furious.vehicle.inspect.domain.ValueObject
 import com.furious.vehicle.inspect.domain.validation.AppError
@@ -9,21 +9,21 @@ data class Address private constructor(
     val state: String,
     val postalCode: String,
     val country: String,
-    val apartment: String?
+    val addressLine2: String?
 ) : ValueObject() {
     companion object {
         fun create(
-            street: String, city: String, state: String, postalCode: String, country: String, apartment: String? = null
+            street: String, city: String, state: String, postalCode: String, country: String, addressLine2: String? = null
         ): Address {
             val trimmedStreet = street.trim()
             val trimmedCity = city.trim()
             val trimmedState = state.trim()
             val trimmedPostalCode = postalCode.trim()
             val trimmedCountry = country.trim()
-            val trimmedApartment = apartment?.trim()?.takeIf { it.isNotEmpty() }
+            val trimmedAddressLine2 = addressLine2?.trim()?.takeIf { it.isNotEmpty() }
 
             return Address(
-                trimmedStreet, trimmedCity, trimmedState, trimmedPostalCode, trimmedCountry, trimmedApartment
+                trimmedStreet, trimmedCity, trimmedState, trimmedPostalCode, trimmedCountry, trimmedAddressLine2
             )
         }
     }
@@ -50,7 +50,7 @@ data class Address private constructor(
     }
 
     fun toFormattedString(): String {
-        val apartmentPart = if (apartment != null) "$apartment, " else ""
-        return "$apartmentPart$street, $city, $state $postalCode, $country"
+        val addressLine2Part = if (addressLine2 != null) "$addressLine2, " else ""
+        return "$addressLine2Part$street, $city, $state $postalCode, $country"
     }
 }
