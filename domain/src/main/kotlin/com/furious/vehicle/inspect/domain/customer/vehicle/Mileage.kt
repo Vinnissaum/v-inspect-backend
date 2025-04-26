@@ -39,6 +39,13 @@ data class Mileage private constructor(val unit: UnitOfMeasurement, private val 
 }
 
 enum class UnitOfMeasurement(val symbol: String) {
-    MILES("miles"), KM("km")
+    MILES("miles"), KM("km");
+
+    companion object {
+        fun from(symbol: String): UnitOfMeasurement {
+            return entries.firstOrNull { it.symbol.equals(symbol, ignoreCase = true) }
+                ?: throw IllegalArgumentException("invalid unit of measurement: '$symbol'")
+        }
+    }
 }
 

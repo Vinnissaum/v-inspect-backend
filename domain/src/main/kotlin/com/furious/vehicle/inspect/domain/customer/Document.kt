@@ -9,7 +9,7 @@ enum class DocumentType {
     companion object {
         fun from(value: String): DocumentType {
             return entries.firstOrNull { it.name.equals(value, ignoreCase = true) }
-                ?: throw IllegalArgumentException("Invalid DocumentType: $value")
+                ?: throw IllegalArgumentException("invalid document type: '$value'")
         }
     }
 }
