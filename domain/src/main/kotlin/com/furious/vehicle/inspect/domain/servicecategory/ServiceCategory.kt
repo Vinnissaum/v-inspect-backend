@@ -25,7 +25,7 @@ class ServiceCategory private constructor(
     }
 
     companion object {
-        fun create(aName: String, aDescription: String?): ServiceCategory = ServiceCategory(
+        fun create(aName: String, aDescription: String? = null): ServiceCategory = ServiceCategory(
             ServiceCategoryID.unique(), aName, aDescription, InstantUtils.now(), InstantUtils.now()
         )
 
@@ -38,7 +38,7 @@ class ServiceCategory private constructor(
         )
     }
 
-    fun update(aName: String, aDescription: String?): ServiceCategory {
+    fun update(aName: String, aDescription: String? = null): ServiceCategory {
         this.name = aName
         this.description = aDescription
         this.updatedAt = InstantUtils.now()
