@@ -41,7 +41,7 @@ class ServiceValidator(private val aService: Service, aHandler: ValidationHandle
     }
 
     private fun checkPrice() {
-        val price = aService.price
+        val price = aService.defaultPrice
 
         if (price != null && price < BigDecimal.ZERO) {
             validationHandler().append(AppError("'price' cannot be negative"))

@@ -20,7 +20,7 @@ class ServiceTest {
             "Service validation",
             { assertNotNull(aService.getId()) },
             { assertEquals(expectedDescription, aService.description) },
-            { assertEquals(expectedPrice.toBigDecimal(), aService.price) },
+            { assertEquals(expectedPrice.toBigDecimal(), aService.defaultPrice) },
             { assertNotNull(aService.createdAt) },
             { assertNotNull(aService.updatedAt) })
     }
@@ -168,7 +168,7 @@ class ServiceTest {
         assertAll(
             "Service validation",
             { assertEquals(updatedDescription, aService.description) },
-            { assertEquals(updatedPrice.toBigDecimal(), aService.price) },
+            { assertEquals(updatedPrice.toBigDecimal(), aService.defaultPrice) },
             { assertEquals(previousUpdatedAt, aService.createdAt) },
             { assertTrue(aService.updatedAt.isAfter(previousUpdatedAt)) })
     }
@@ -193,7 +193,7 @@ class ServiceTest {
             "Service validation",
             { assertEquals(updatedDescription, aService.description) },
             { assertEquals(updatedCategory.getId().getValue(), aService.category.getValue()) },
-            { assertEquals(updatedPrice.toBigDecimal(), aService.price) },
+            { assertEquals(updatedPrice.toBigDecimal(), aService.defaultPrice) },
             { assertEquals(previousUpdatedAt, aService.createdAt) },
             { assertTrue(aService.updatedAt.isAfter(previousUpdatedAt)) })
     }

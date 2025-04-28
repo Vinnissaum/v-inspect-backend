@@ -2,7 +2,6 @@ package com.furious.vehicle.inspect.domain.service
 
 import com.furious.vehicle.inspect.domain.AggregateRoot
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
-import com.furious.vehicle.inspect.domain.servicecategory.ServiceCategory
 import com.furious.vehicle.inspect.domain.servicecategory.ServiceCategoryID
 import com.furious.vehicle.inspect.domain.utils.InstantUtils
 import com.furious.vehicle.inspect.domain.validation.ValidationHandler
@@ -14,7 +13,7 @@ class Service private constructor(
     anId: ServiceID,
     aServiceCategory: ServiceCategoryID,
     aDescription: String,
-    aPrice: BigDecimal?,
+    aDefaultPrice: BigDecimal?,
     createdAt: Instant,
     updatedAt: Instant
 ) : AggregateRoot<ServiceID>(anId) {
@@ -22,7 +21,7 @@ class Service private constructor(
         private set
     var description: String = aDescription
         private set
-    var price: BigDecimal? = aPrice
+    var defaultPrice: BigDecimal? = aDefaultPrice
         private set
     var createdAt: Instant = createdAt
         private set
@@ -39,14 +38,14 @@ class Service private constructor(
         )
 
         fun with(aService: Service): Service = Service(
-            aService.id, aService.category, aService.description, aService.price, aService.createdAt, aService.updatedAt
+            aService.id, aService.category, aService.description, aService.defaultPrice, aService.createdAt, aService.updatedAt
         )
     }
 
     fun update(aCategory: ServiceCategoryID, aDescription: String, aPrice: BigDecimal?) : Service {
         this.category = aCategory
         this.description = aDescription
-        this.price = aPrice
+        this.defaultPrice = aPrice
         this.updatedAt = InstantUtils.now()
 
         selfValidate(true)
