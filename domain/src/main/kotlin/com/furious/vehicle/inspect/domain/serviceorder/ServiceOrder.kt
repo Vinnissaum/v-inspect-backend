@@ -33,7 +33,7 @@ class ServiceOrder private constructor(
         private set
     var updatedAt: Instant = anUpdatedAt
         private set
-    var completedAt: Instant? = null
+    var completedAt: Instant? = aCompletedAt
         private set
     var items = mutableListOf<ServiceOrderItem>()
         private set
