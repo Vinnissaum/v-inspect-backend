@@ -22,15 +22,16 @@ class Notification(private val errors: MutableList<AppError>) : ValidationHandle
         return this
     }
 
-    override fun <T> validate(aValidation: ValidationHandler.Validation<T>): T? {
-        try {
-            return aValidation.validate()
+    override fun <T> validate(aValidation: () -> T): T? {
+        return try {
+            aValidation()
         } catch (ex: DomainException) {
             errors.addAll(ex.getErrors())
+            null
         } catch (t: Throwable) {
-            errors.add(AppError(t.message ?: "Unknown error"))
+            errors.add(AppError(t.message))
+            null
         }
-        return null
     }
 
     override fun getErrors(): List<AppError> = this.errors

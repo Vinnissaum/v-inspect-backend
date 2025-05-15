@@ -6,7 +6,7 @@ interface ValidationHandler {
 
     fun append(anHandler: ValidationHandler): ValidationHandler
 
-    fun <T> validate(aValidation: Validation<T>): T?
+    fun <T> validate(aValidation: () -> T): T?
 
     fun getErrors(): List<AppError>
 

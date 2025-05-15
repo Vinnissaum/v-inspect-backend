@@ -3,3 +3,5 @@ plugins {
 }
 rootProject.name = "v-inspect-backend"
 include("domain")
+
+include("application")

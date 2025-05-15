@@ -14,9 +14,9 @@ class ThrowsValidationHandler : ValidationHandler {
         throw DomainException.with(anHandler.getErrors())
     }
 
-    override fun <T> validate(aValidation: ValidationHandler.Validation<T>): T {
-        try {
-            return aValidation.validate();
+    override fun <T> validate(aValidation: () -> T): T? {
+        return try {
+            aValidation()
         } catch (ex: Exception) {
             throw DomainException.with(listOf(AppError(ex.message ?: "Unknown error")))
         }
