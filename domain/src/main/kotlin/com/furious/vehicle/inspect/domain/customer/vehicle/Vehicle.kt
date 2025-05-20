@@ -107,4 +107,6 @@ class Vehicle private constructor(
             throw NotificationException(errorMessage, notification)
         }
     }
+
+    fun getId(): VehicleID = id
 }
