@@ -1,6 +1,7 @@
 package com.furious.vehicle.inspect.domain.customer.vehicle
 
 import com.furious.vehicle.inspect.domain.AggregateRoot
+import com.furious.vehicle.inspect.domain.Entity
 import com.furious.vehicle.inspect.domain.customer.CustomerID
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
 import com.furious.vehicle.inspect.domain.utils.InstantUtils
@@ -14,12 +15,13 @@ class Vehicle private constructor(
     aMake: String,
     aModel: String,
     aYear: Int,
+    aColor: String,
     aLicensePlate: LicensePlate,
     aMileage: Mileage?,
     aCreatedAt: Instant,
     anUpdatedAt: Instant
 
-) : AggregateRoot<VehicleID>(anId) {
+) : Entity<VehicleID>(anId) {
     var customerID: CustomerID = aCustomerId
         private set
     var make: String = aMake
@@ -27,6 +29,8 @@ class Vehicle private constructor(
     var model: String = aModel
         private set
     var year: Int = aYear
+        private set
+    var color: String = aColor
         private set
     var licensePlate: LicensePlate = aLicensePlate
         private set
@@ -47,6 +51,7 @@ class Vehicle private constructor(
             aMake: String,
             aModel: String,
             aYear: Int,
+            aColor: String,
             aLicensePlate: LicensePlate,
             aMileage: Mileage? = null
         ): Vehicle = Vehicle(
@@ -55,6 +60,7 @@ class Vehicle private constructor(
             aMake,
             aModel,
             aYear,
+            aColor,
             aLicensePlate,
             aMileage,
             InstantUtils.now(),
@@ -67,6 +73,7 @@ class Vehicle private constructor(
             aVehicle.make,
             aVehicle.model,
             aVehicle.year,
+            aVehicle.color,
             aVehicle.licensePlate,
             aVehicle.mileage,
             aVehicle.createdAt,
@@ -79,6 +86,7 @@ class Vehicle private constructor(
         aMake: String,
         aModel: String,
         aYear: Int,
+        aColor: String,
         aLicensePlate: LicensePlate,
         aMileage: Mileage? = null
     ): Vehicle {
@@ -86,6 +94,7 @@ class Vehicle private constructor(
         make = aMake
         model = aModel
         year = aYear
+        color = aColor
         licensePlate = aLicensePlate
         mileage = aMileage
         updatedAt = InstantUtils.now()
@@ -99,7 +108,7 @@ class Vehicle private constructor(
     }
 
     private fun selfValidate(isUpdate: Boolean = false) {
-        val errorMessage = "Failed to ${if (isUpdate) "update" else "create"} an Aggregate Vehicle"
+        val errorMessage = "Failed to ${if (isUpdate) "update" else "create"} an Entity Vehicle"
         val notification: Notification = Notification.create()
         this.validate(notification)
 

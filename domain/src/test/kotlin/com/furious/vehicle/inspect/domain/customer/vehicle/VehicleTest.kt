@@ -15,11 +15,18 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
 
         val aVehicle = Vehicle.create(
-            expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+            expectedCustomerID,
+            expectedMake,
+            expectedModel,
+            expectedYear,
+            expectedColor,
+            expectedLicensePlate,
+            expectedMileage
         )
 
         assertAll(
@@ -28,6 +35,7 @@ class VehicleTest {
             { assertEquals(expectedMake, aVehicle.make) },
             { assertEquals(expectedModel, aVehicle.model) },
             { assertEquals(expectedYear, aVehicle.year) },
+            { assertEquals(expectedColor, aVehicle.color) },
             { assertEquals(expectedLicensePlate, aVehicle.licensePlate) },
             { assertEquals(expectedMileage, aVehicle.mileage) },
             { assertNotNull(aVehicle.createdAt) },
@@ -40,12 +48,12 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = null
 
-
         val aVehicle = Vehicle.create(
-            expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate
+            expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedColor, expectedLicensePlate
         )
 
         assertAll(
@@ -54,6 +62,7 @@ class VehicleTest {
             { assertEquals(expectedMake, aVehicle.make) },
             { assertEquals(expectedModel, aVehicle.model) },
             { assertEquals(expectedYear, aVehicle.year) },
+            { assertEquals(expectedColor, aVehicle.color) },
             { assertEquals(expectedLicensePlate, aVehicle.licensePlate) },
             { assertEquals(expectedMileage, aVehicle.mileage) },
             { assertNotNull(aVehicle.createdAt) },
@@ -66,15 +75,22 @@ class VehicleTest {
         val expectedMake = "a"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedMakeErrorMessage = "'make' must be between 2 and 20 characters"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -92,15 +108,22 @@ class VehicleTest {
         val expectedMake = "aaaaa aaaa aaaaa aaaa"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedMakeErrorMessage = "'make' must be between 2 and 20 characters"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -118,15 +141,55 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "C"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedModelErrorMessage = "'model' must be between 2 and 30 characters"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
+            )
+        }
+
+        assertAll(
+            "Vehicle exception validation",
+            { assertEquals(expectedErrorMessage, actualException.message) },
+            { assertEquals(expectedErrorCount, actualException.getErrors().size) },
+            { assertEquals(expectedModelErrorMessage, actualException.getErrors().first().message) },
+        )
+    }
+
+    @Test
+    fun `given an invalid color with less than 3 chars when call create then should throw a Notification exception`() {
+        val expectedCustomerID = CustomerID.from("123")
+        val expectedMake = "Honda"
+        val expectedModel = "Civic SI"
+        val expectedYear = 2014
+        val expectedColor = "Or"
+        val expectedLicensePlate = LicensePlate.create("ABC-1234")
+        val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
+        val expectedModelErrorMessage = "'color' must be between 3 and 30 characters"
+        val expectedErrorCount = 1
+
+        val actualException = assertThrows<NotificationException> {
+            Vehicle.create(
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -144,15 +207,55 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "aaaaa aaaa aaaaa aaaa aaaa aaaa"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedModelErrorMessage = "'model' must be between 2 and 30 characters"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
+            )
+        }
+
+        assertAll(
+            "Vehicle exception validation",
+            { assertEquals(expectedErrorMessage, actualException.message) },
+            { assertEquals(expectedErrorCount, actualException.getErrors().size) },
+            { assertEquals(expectedModelErrorMessage, actualException.getErrors().first().message) },
+        )
+    }
+
+    @Test
+    fun `given an invalid color with more than 30 chars when call create then should throw a Notification exception`() {
+        val expectedCustomerID = CustomerID.from("123")
+        val expectedMake = "Honda"
+        val expectedModel = "Civic SI"
+        val expectedYear = 2014
+        val expectedColor = "aaaaa aaaa aaaaa aaaa aaaa aaaa"
+        val expectedLicensePlate = LicensePlate.create("ABC-1234")
+        val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
+        val expectedModelErrorMessage = "'color' must be between 3 and 30 characters"
+        val expectedErrorCount = 1
+
+        val actualException = assertThrows<NotificationException> {
+            Vehicle.create(
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -170,15 +273,22 @@ class VehicleTest {
         val expectedMake = ""
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedMakeErrorMessage = "'make' cannot be empty"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -196,15 +306,55 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "  "
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedModelErrorMessage = "'model' cannot be blank"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
+            )
+        }
+
+        assertAll(
+            "Vehicle exception validation",
+            { assertEquals(expectedErrorMessage, actualException.message) },
+            { assertEquals(expectedErrorCount, actualException.getErrors().size) },
+            { assertEquals(expectedModelErrorMessage, actualException.getErrors().first().message) },
+        )
+    }
+
+    @Test
+    fun `given an invalid blank color when call create then should throw a Notification exception`() {
+        val expectedCustomerID = CustomerID.from("123")
+        val expectedMake = "Honda"
+        val expectedModel = "Civic SI"
+        val expectedYear = 2014
+        val expectedColor = "   "
+        val expectedLicensePlate = LicensePlate.create("ABC-1234")
+        val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
+        val expectedModelErrorMessage = "'color' cannot be blank"
+        val expectedErrorCount = 1
+
+        val actualException = assertThrows<NotificationException> {
+            Vehicle.create(
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -222,15 +372,55 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = ""
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedModelErrorMessage = "'model' cannot be empty"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
+            )
+        }
+
+        assertAll(
+            "Vehicle exception validation",
+            { assertEquals(expectedErrorMessage, actualException.message) },
+            { assertEquals(expectedErrorCount, actualException.getErrors().size) },
+            { assertEquals(expectedModelErrorMessage, actualException.getErrors().first().message) },
+        )
+    }
+
+    @Test
+    fun `given an invalid empty color when call create then should throw a Notification exception`() {
+        val expectedCustomerID = CustomerID.from("123")
+        val expectedMake = "Honda"
+        val expectedModel = "Civic SI"
+        val expectedYear = 2014
+        val expectedColor = ""
+        val expectedLicensePlate = LicensePlate.create("ABC-1234")
+        val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
+        val expectedModelErrorMessage = "'color' cannot be empty"
+        val expectedErrorCount = 1
+
+        val actualException = assertThrows<NotificationException> {
+            Vehicle.create(
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -248,15 +438,22 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC @234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedLicensePlateErrorMessage = "invalid 'license plate' format"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -274,15 +471,22 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, -20.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedMileageErrorMessage = "'mileage' cannot be negative"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -300,15 +504,22 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = -2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 20.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedYearErrorMessage = "'year' cannot be negative"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -325,16 +536,23 @@ class VehicleTest {
         val expectedCustomerID = CustomerID.from("123")
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
+        val expectedColor = "Orange"
         val expectedYear = Year.now().value + 2
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 20.00)
-        val expectedErrorMessage = "Failed to create an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to create an Entity Vehicle"
         val expectedYearErrorMessage = "'year' cannot be more than 2 years ahead"
         val expectedErrorCount = 1
 
         val actualException = assertThrows<NotificationException> {
             Vehicle.create(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 
@@ -352,11 +570,12 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
 
         val aVehicle = Vehicle.create(
-            expectedCustomerID, "Subaru", "WRX", 2016, expectedLicensePlate, expectedMileage
+            expectedCustomerID, "Subaru", "WRX", 2016, expectedColor, expectedLicensePlate, expectedMileage
         )
 
         val aCreatedAt = aVehicle.createdAt
@@ -364,7 +583,13 @@ class VehicleTest {
 
         Thread.sleep(1)
         val actualVehicle = aVehicle.update(
-            expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+            expectedCustomerID,
+            expectedMake,
+            expectedModel,
+            expectedYear,
+            expectedColor,
+            expectedLicensePlate,
+            expectedMileage
         )
 
         assertAll(
@@ -373,6 +598,7 @@ class VehicleTest {
             { assertEquals(expectedMake, actualVehicle.make) },
             { assertEquals(expectedModel, actualVehicle.model) },
             { assertEquals(expectedYear, actualVehicle.year) },
+            { assertEquals(expectedColor, actualVehicle.color) },
             { assertEquals(expectedLicensePlate, actualVehicle.licensePlate) },
             { assertEquals(expectedMileage, actualVehicle.mileage) },
             { assertEquals(aCreatedAt, actualVehicle.createdAt) },
@@ -385,11 +611,12 @@ class VehicleTest {
         val expectedMake = "Honda"
         val expectedModel = "Civic SI"
         val expectedYear = 2014
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 50000.00)
 
         val aVehicle = Vehicle.create(
-            expectedCustomerID, "Subaru", "WRX", 2016, expectedLicensePlate
+            expectedCustomerID, "Subaru", "WRX", 2016, expectedColor, expectedLicensePlate
         )
 
         val aCreatedAt = aVehicle.createdAt
@@ -397,7 +624,13 @@ class VehicleTest {
 
         Thread.sleep(1)
         val actualVehicle = aVehicle.update(
-            expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+            expectedCustomerID,
+            expectedMake,
+            expectedModel,
+            expectedYear,
+            expectedColor,
+            expectedLicensePlate,
+            expectedMileage
         )
 
         assertAll(
@@ -406,6 +639,7 @@ class VehicleTest {
             { assertEquals(expectedMake, actualVehicle.make) },
             { assertEquals(expectedModel, actualVehicle.model) },
             { assertEquals(expectedYear, actualVehicle.year) },
+            { assertEquals(expectedColor, actualVehicle.color) },
             { assertEquals(expectedLicensePlate, actualVehicle.licensePlate) },
             { assertEquals(expectedMileage, actualVehicle.mileage) },
             { assertEquals(aCreatedAt, actualVehicle.createdAt) },
@@ -418,20 +652,27 @@ class VehicleTest {
         val expectedMake = "Subaru"
         val expectedModel = " "
         val expectedYear = Year.now().value + 2
+        val expectedColor = "Orange"
         val expectedLicensePlate = LicensePlate.create("ABC-1234")
         val expectedMileage = Mileage.create(UnitOfMeasurement.KM, 20.00)
-        val expectedErrorMessage = "Failed to update an Aggregate Vehicle"
+        val expectedErrorMessage = "Failed to update an Entity Vehicle"
         val expectedModelErrorMessage = "'model' cannot be blank"
         val expectedYearErrorMessage = "'year' cannot be more than 2 years ahead"
         val expectedErrorCount = 2
 
         val aVehicle = Vehicle.create(
-            expectedCustomerID, "Subaru", "WRX", 2016, expectedLicensePlate
+            expectedCustomerID, "Subaru", "WRX", 2016, expectedColor, expectedLicensePlate
         )
 
         val actualException = assertThrows<NotificationException> {
             aVehicle.update(
-                expectedCustomerID, expectedMake, expectedModel, expectedYear, expectedLicensePlate, expectedMileage
+                expectedCustomerID,
+                expectedMake,
+                expectedModel,
+                expectedYear,
+                expectedColor,
+                expectedLicensePlate,
+                expectedMileage
             )
         }
 

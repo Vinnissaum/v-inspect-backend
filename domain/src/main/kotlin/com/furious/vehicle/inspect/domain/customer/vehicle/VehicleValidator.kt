@@ -14,12 +14,15 @@ class VehicleValidator(
         private const val MAKE_MIN_LENGTH = 2
         private const val MODEL_MAX_LENGTH = 30
         private const val MODEL_MIN_LENGTH = 2
+        private const val COLOR_MIN_LENGTH = 3
+        private const val COLOR_MAX_LENGTH = 30
     }
 
     override fun validate() {
         checkMake()
         checkModel()
         checkYear()
+        checkColor()
         checkLicensePlate()
         checkMileage()
     }
@@ -73,6 +76,25 @@ class VehicleValidator(
         if (year > Year.now().value + 1) {
             validationHandler().append(AppError("'year' cannot be more than 2 years ahead"))
             return
+        }
+    }
+
+    private fun checkColor() {
+        val color = aVehicle.color
+
+        if (color.isEmpty()) {
+            validationHandler().append(AppError("'color' cannot be empty"))
+            return
+        }
+
+        if (color.isBlank()) {
+            validationHandler().append(AppError("'color' cannot be blank"))
+            return
+        }
+
+        val colorLength = color.trim().length
+        if (colorLength < COLOR_MIN_LENGTH || colorLength > COLOR_MAX_LENGTH) {
+            validationHandler().append(AppError("'color' must be between $COLOR_MIN_LENGTH and $COLOR_MAX_LENGTH characters"))
         }
     }
 
