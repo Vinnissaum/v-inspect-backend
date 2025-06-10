@@ -1,12 +1,12 @@
-package com.furious.vehicle.inspect.domain.customer.vehicle
+package com.furious.vehicle.inspect.domain.vehicle
 
 import com.furious.vehicle.inspect.domain.ValueObject
 import com.furious.vehicle.inspect.domain.validation.AppError
 
 
-data class Mileage private constructor(val unit: UnitOfMeasurement, private val value: Double) : ValueObject() {
+data class Mileage(val unit: UnitOfMeasurement, val value: Double) : ValueObject() {
     companion object {
-        fun create(unit: UnitOfMeasurement, value: Double): Mileage = Mileage(unit, value)
+        fun create(unit: UnitOfMeasurement = UnitOfMeasurement.KM, value: Double): Mileage = Mileage(unit, value)
     }
 
     fun validate(): List<AppError> {

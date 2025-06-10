@@ -1,7 +1,7 @@
 package com.furious.vehicle.inspect.domain.serviceorder
 
 import com.furious.vehicle.inspect.domain.customer.CustomerID
-import com.furious.vehicle.inspect.domain.customer.vehicle.VehicleID
+import com.furious.vehicle.inspect.domain.vehicle.VehicleID
 import com.furious.vehicle.inspect.domain.service.Service
 import com.furious.vehicle.inspect.domain.servicecategory.ServiceCategoryID
 import org.junit.jupiter.api.Assertions.*

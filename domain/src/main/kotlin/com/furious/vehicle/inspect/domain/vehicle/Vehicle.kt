@@ -1,7 +1,6 @@
-package com.furious.vehicle.inspect.domain.customer.vehicle
+package com.furious.vehicle.inspect.domain.vehicle
 
 import com.furious.vehicle.inspect.domain.AggregateRoot
-import com.furious.vehicle.inspect.domain.Entity
 import com.furious.vehicle.inspect.domain.customer.CustomerID
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
 import com.furious.vehicle.inspect.domain.utils.InstantUtils
@@ -21,7 +20,7 @@ class Vehicle private constructor(
     aCreatedAt: Instant,
     anUpdatedAt: Instant
 
-) : Entity<VehicleID>(anId) {
+) : AggregateRoot<VehicleID>(anId) {
     var customerID: CustomerID = aCustomerId
         private set
     var make: String = aMake

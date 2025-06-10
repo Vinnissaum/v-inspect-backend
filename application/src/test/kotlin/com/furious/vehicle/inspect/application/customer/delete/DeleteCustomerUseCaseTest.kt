@@ -12,7 +12,7 @@ import kotlin.test.assertTrue
 class DeleteCustomerUseCaseTest {
 
     private val customerGateway: CustomerGateway = mock(CustomerGateway::class.java)
-    private val useCase = DeleteCustomerUseCaseImpl(customerGateway)
+    private val useCase = DefaultDeleteCustomerUseCase(customerGateway)
 
     @Test
     fun `should delete customer successfully`() {

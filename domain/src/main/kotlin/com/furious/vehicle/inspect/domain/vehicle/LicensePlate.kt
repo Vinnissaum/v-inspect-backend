@@ -1,9 +1,9 @@
-package com.furious.vehicle.inspect.domain.customer.vehicle
+package com.furious.vehicle.inspect.domain.vehicle
 
 import com.furious.vehicle.inspect.domain.ValueObject
 import com.furious.vehicle.inspect.domain.validation.AppError
 
-data class LicensePlate private constructor(private val value: String) : ValueObject() {
+data class LicensePlate(val value: String) : ValueObject() {
     companion object {
         fun create(value: String): LicensePlate = LicensePlate(value)
     }

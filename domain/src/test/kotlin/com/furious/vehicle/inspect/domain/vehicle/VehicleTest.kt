@@ -1,7 +1,11 @@
-package com.furious.vehicle.inspect.domain.customer.vehicle
+package com.furious.vehicle.inspect.domain.vehicle
 
 import com.furious.vehicle.inspect.domain.customer.CustomerID
 import com.furious.vehicle.inspect.domain.exceptions.NotificationException
+import com.furious.vehicle.inspect.domain.vehicle.LicensePlate
+import com.furious.vehicle.inspect.domain.vehicle.Mileage
+import com.furious.vehicle.inspect.domain.vehicle.UnitOfMeasurement
+import com.furious.vehicle.inspect.domain.vehicle.Vehicle
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

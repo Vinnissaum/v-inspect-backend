@@ -10,7 +10,7 @@ import org.mockito.Mockito.*
 class GetCustomerUseCaseTest {
 
     private val customerGateway: CustomerGateway = mock(CustomerGateway::class.java)
-    private val useCase = GetCustomerByIdUseCaseImpl(customerGateway)
+    private val useCase = DefaultGetCustomerByIdUseCase(customerGateway)
 
     @Test
     fun `should retrieve customer successfully`() {

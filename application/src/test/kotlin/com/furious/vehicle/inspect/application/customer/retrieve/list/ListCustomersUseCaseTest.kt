@@ -12,7 +12,7 @@ import org.mockito.kotlin.any
 class ListCustomersUseCaseTest {
 
     private val customerGateway: CustomerGateway = mock(CustomerGateway::class.java)
-    private val useCase = ListCustomersUseCaseImpl(customerGateway)
+    private val useCase = DefaultListCustomersUseCase(customerGateway)
 
     @Test
     fun `should list all customers successfully`() {

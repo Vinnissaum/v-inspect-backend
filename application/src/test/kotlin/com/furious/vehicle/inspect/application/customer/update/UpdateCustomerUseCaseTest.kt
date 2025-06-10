@@ -13,7 +13,7 @@ import org.mockito.Mockito.*
 class UpdateCustomerUseCaseTest {
 
     private val customerGateway: CustomerGateway = mock(CustomerGateway::class.java)
-    private val useCase = UpdateCustomerUseCaseImpl(customerGateway)
+    private val useCase = DefaultUpdateCustomerUseCase(customerGateway)
 
     @Test
     fun `should update customer successfully`() {
