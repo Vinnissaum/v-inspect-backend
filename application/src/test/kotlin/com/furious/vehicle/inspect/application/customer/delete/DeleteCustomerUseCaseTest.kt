@@ -1,10 +1,9 @@
 package com.furious.vehicle.inspect.application.customer.delete
 
-import com.furious.vehicle.inspect.domain.customer.Customer
 import com.furious.vehicle.inspect.domain.customer.CustomerGateway
 import com.furious.vehicle.inspect.domain.customer.CustomerID
-import com.furious.vehicle.inspect.domain.exceptions.NotFoundException
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.*
 import kotlin.test.assertTrue
@@ -26,17 +25,29 @@ class DeleteCustomerUseCaseTest {
     }
 
     @Test
-    fun `should throw NotFoundException when customer does not exist`() {
-        val customerId = CustomerID.from("123")
+    fun `given an invalid id when calls delete then should be ok`() {
+        val customerId = CustomerID.from("invalid-id")
 
-        doThrow(NotFoundException.with(Customer::class, customerId))
-            .`when`(customerGateway).deleteById(customerId)
+        doNothing().`when`(customerGateway).deleteById(customerId)
 
-        val exception = assertThrows<NotFoundException> {
+        assertDoesNotThrow {
             useCase.execute(customerId.getValue())
         }
 
-        assertTrue(exception.message!!.contains("Customer with ID 123 was not found"))
+        verify(customerGateway).deleteById(customerId)
+    }
+
+    @Test
+    fun `should throw exception when gateway throws an exception`() {
+        val customerId = CustomerID.from("123")
+
+        doThrow(IllegalStateException("Gateway error")).`when`(customerGateway).deleteById(customerId)
+
+        val exception = assertThrows<IllegalStateException> {
+            useCase.execute(customerId.getValue())
+        }
+
+        assertTrue(exception.message!!.contains("Gateway error"))
         verify(customerGateway).deleteById(customerId)
     }
 }
